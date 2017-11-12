@@ -1,0 +1,29 @@
+<h1 style="color: #5e9ca0;">Ratatouille messenger</h1>
+
+Enter Chat and press enter
+<div id><input id=input placeholder="Enter message" /><button type="sendButton" onclick="send()">Send</button></div>
+
+Chat Output
+<div id=box></div>
+
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
+<script>
+	function send() {
+		pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
+	} 
+
+      var pubnub = new PubNub({ publishKey : 'demo', subscribeKey : 'demo' });
+      function $(id) { return document.getElementById(id); }
+      var box = $('box'), input = $('input'), channel = '10chat-demo';
+      pubnub.addListener({
+          message: function(obj) {
+              box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+          }});
+      pubnub.subscribe({channels:[channel]});
+      input.addEventListener('keyup', function(e) {
+          if ((e.keyCode || e.charCode) === 13) {
+            send()
+        }
+      });
+</script>
+<script src=></script>
