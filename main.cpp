@@ -13,7 +13,7 @@ using json = nlohmann::json;
 void complicated();
 
 map<int,string> langConv = {
-
+   {0, "fr"},
    {1, "en"},         // English
    {2, "es"},        // Spanish
    {3, "zh-CN"},     // Chinese(Traditional)
@@ -63,6 +63,7 @@ int main () {
 int langList() {
    int num;
    cout << "Please choose a language from the list of supported languages\n"
+        << "Appuyez sur 0 pour le français\n"
         << "For English press 1\nPara Español entra número dos\n"
         << "按3来输入中文\n日本語の場合は4を押してください\n";
    cin >> num;
@@ -103,13 +104,16 @@ void complicated() {
    vs.push_back("-H");
    vs.push_back("Content-Type: application/json");
    vs.push_back("-H");
-   vs.push_back("Authorization: Bearer ya29.c.EloBBfUxYwhBi0YBTZ1D5WkPYJ09XnKobzdKKnGBRc_8CIRQK_UbWmfnAMjRt8pDvR4SaxiL0hAIcH1QXZ8Ezn98BFZ1piN_Ad-7dgmHaj4isyf2wP8sCLM8ub8");
+   vs.push_back("Authorization: Bearer ya29.c.EloCBYNZ6-ZQHUynZYraAPXutWny2voXBMhEzB5tzPMn-Yv7n4IKQ_3bEFawBW99wXfIg-rEWqthum763wXb4CqT_tV3Z97JqOjX1A6OK1x3F6lXimvIwKHslPQ");
    vs.push_back("https://translation.googleapis.com/language/translate/v2");
    vs.push_back("-d");
    vs.push_back("@translate-request.json");
    
    transform(vs.begin(), vs.end(), back_inserter(vc), convert);
-   
+   // for (unsigned i =0; i < vs.size(); i++) {
+   //    cout << vs.at(i) << " ";
+   // }
+   // cout << endl;
    int pipefd[2];
    pipe(pipefd);
    pid_t child = fork();
